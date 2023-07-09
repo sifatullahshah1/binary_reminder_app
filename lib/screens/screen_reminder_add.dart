@@ -59,7 +59,7 @@ class _ScreenReminderAddState extends State<ScreenReminderAdd> {
             data_event.list_reminders.add(data_reminder);
 
             box_event.put(data_event.key.toString(), data_event);
-            Navigator.pop(context);
+            Navigator.pop(context, data_event);
 
           }, child: Text("Add Reminder"))
         ],

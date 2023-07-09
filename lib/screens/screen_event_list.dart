@@ -30,36 +30,34 @@ class _ScreenEventListState extends State<ScreenEventList> {
       floatingActionButton: FloatingActionButton(onPressed: (){
         Navigator.push(context, MaterialPageRoute(builder: (builder) => ScreenEventAdd()));
       }, child: Icon(Icons.add),),
-      body:  Expanded(
-        child: Container(
-          alignment: Alignment.topCenter,
-          child: ValueListenableBuilder<Box<DataEvent>>(
-            valueListenable: HiveDatabaseBox.GetDataEvent().listenable(),
-            builder: (context, box, _) {
-              List<DataEvent> list_event = box.values.toList().cast<DataEvent>();
+      body:  Container(
+        alignment: Alignment.topCenter,
+        child: ValueListenableBuilder<Box<DataEvent>>(
+          valueListenable: HiveDatabaseBox.GetDataEvent().listenable(),
+          builder: (context, box, _) {
+            List<DataEvent> list_event = box.values.toList().cast<DataEvent>();
 
-              return list_event.length > 0 ?
-              ListView.builder(
-                // padding: EdgeInsets.zero,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  itemCount: list_event.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () async {
-                        Navigator.push(context, MaterialPageRoute(builder: (builder) => ScreenReminderList(dataEvent: list_event[index],)));
+            return list_event.length > 0 ?
+            ListView.builder(
+              // padding: EdgeInsets.zero,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                itemCount: list_event.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () async {
+                      Navigator.push(context, MaterialPageRoute(builder: (builder) => ScreenReminderList(dataEvent: list_event[index],)));
 
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Text("${list_event[index].event_name}"),
-                      ),
-                    );
-                  }) :
-              Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          ),
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Text("${list_event[index].event_name}"),
+                    ),
+                  );
+                }) :
+            Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         ),
       ),
     );

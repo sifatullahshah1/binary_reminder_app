@@ -37,34 +37,35 @@ class _ScreenReminderListState extends State<ScreenReminderList> {
       appBar: AppBar(
         title: Text("List of Reminders"),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (builder) => ScreenEventAdd()));
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        DataEvent dataEvent = await Navigator.push(context, MaterialPageRoute(builder: (builder) => ScreenReminderAdd(dataEvent: widget.dataEvent)));
+        setState(() {
+          this.dataEvent = dataEvent;
+        });
       }, child: Icon(Icons.add),),
-      body:  Expanded(
-        child: Container(
-          alignment: Alignment.topCenter,
-          child:  widget.dataEvent.list_reminders.length > 0 ?
-          ListView.builder(
-            // padding: EdgeInsets.zero,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              itemCount: widget.dataEvent.list_reminders.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () async {
-                    DataEvent dataEvent = await Navigator.push(context, MaterialPageRoute(builder: (builder) => ScreenReminderAdd(dataEvent: widget.dataEvent)));
-                    setState(() {
-                      this.dataEvent = dataEvent;
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: Text("${widget.dataEvent.list_reminders[index].description}"),
-                  ),
-                );
-              }) :
-          Center(
-            child: CircularProgressIndicator(),
-          ),
+      body:  Container(
+        alignment: Alignment.topCenter,
+        child:  widget.dataEvent.list_reminders.length > 0 ?
+        ListView.builder(
+          // padding: EdgeInsets.zero,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            itemCount: widget.dataEvent.list_reminders.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () async {
+                  DataEvent dataEvent = await Navigator.push(context, MaterialPageRoute(builder: (builder) => ScreenReminderAdd(dataEvent: widget.dataEvent)));
+                  setState(() {
+                    this.dataEvent = dataEvent;
+                  });
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Text("${widget.dataEvent.list_reminders[index].description}"),
+                ),
+              );
+            }) :
+        Center(
+          child: CircularProgressIndicator(),
         ),
       ),
     );
