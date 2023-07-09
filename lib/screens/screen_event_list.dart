@@ -2,6 +2,7 @@ import 'package:binary_reminder_app/hive_database/hive_database.dart';
 import 'package:binary_reminder_app/hive_database/hive_database_box.dart';
 import 'package:binary_reminder_app/screens/screen_event_add.dart';
 import 'package:binary_reminder_app/screens/screen_reminder_add.dart';
+import 'package:binary_reminder_app/screens/screen_reminder_list.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // import 'package:hive/hive.dart';
@@ -45,12 +46,12 @@ class _ScreenEventListState extends State<ScreenEventList> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () async {
-                        Navigator.push(context, MaterialPageRoute(builder: (builder) => ScreenReminderAdd(dataEvent: list_event[index],)));
+                        Navigator.push(context, MaterialPageRoute(builder: (builder) => ScreenReminderList(dataEvent: list_event[index],)));
 
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Text("${list_event[index]}"),
+                        child: Text("${list_event[index].event_name}"),
                       ),
                     );
                   }) :
